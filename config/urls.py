@@ -16,28 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-from categories.views import CategoryViewSet
-from comments.views import CommentViewSet
-from posts.views import PostViewSet, PostLikeViewSet
-from tags.views import TagViewSet
-from users.views import UserViewSet, RegisterViewSet, LoginView, RefreshTokenView
-
-
-router = DefaultRouter()
-router.register(r'categories', CategoryViewSet, basename='category')
-router.register(r'comments', CommentViewSet, basename='comment')
-router.register(r'posts', PostViewSet, basename='post')
-router.register(r'postlikes', PostLikeViewSet, basename='postlike')
-router.register(r'tags', TagViewSet, basename='tag')
-router.register(r'users', UserViewSet, basename='user')
-router.register(r'auth/register', RegisterViewSet, basename='register')
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('auth/login/', LoginView.as_view(), name='token_obtain_pair'),
-    path('auth/refresh/', RefreshTokenView.as_view(), name='token_refresh'),
-    path('api/', include(router.urls))
+    path('api/', include('categories.urls')),
+    path('api/', include('users.urls')),
 ]
 

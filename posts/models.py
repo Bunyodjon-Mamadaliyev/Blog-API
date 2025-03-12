@@ -1,6 +1,5 @@
 from django.db import models
-from users.models import User
-from tags.models import Tag
+from users.models import UserProfile
 
 
 class Post(models.Model):
@@ -11,7 +10,7 @@ class Post(models.Model):
     title = models.CharField(max_length=100)
     slug = models.SlugField(unique=True)
     content = models.TextField()
-    author = models.ForeignKey('users.User', on_delete=models.CASCADE)
+    author = models.ForeignKey('users.UserProfile', on_delete=models.CASCADE)
     category = models.ForeignKey('categories.Category', on_delete=models.CASCADE)
     tags = models.ManyToManyField('tags.Tag', blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -35,7 +34,7 @@ class PostLike(models.Model):
         (DISLIKE, "Dislike"),
     ]
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='likes')
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     value = models.CharField(max_length=10, choices=VALUE_CHOICES)
 
