@@ -8,4 +8,4 @@ class UserProfile(models.Model):
     website = models.URLField(blank=True, null=True)
 
     def __str__(self):
-        return f"{self.user} Profile"
+        return self.user.username

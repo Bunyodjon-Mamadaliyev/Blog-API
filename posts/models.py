@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 from users.models import UserProfile
 
 
@@ -10,7 +11,7 @@ class Post(models.Model):
     title = models.CharField(max_length=100)
     slug = models.SlugField(unique=True)
     content = models.TextField()
-    author = models.ForeignKey('users.UserProfile', on_delete=models.CASCADE)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     category = models.ForeignKey('categories.Category', on_delete=models.CASCADE)
     tags = models.ManyToManyField('tags.Tag', blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
